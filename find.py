@@ -11,6 +11,21 @@ def get_words():
         return [l.strip() for l in f]
 
 
+def display_results(solutions):
+    by_len = {}
+    for s in solutions:
+        sol_len = len(s)
+        entry = by_len.get(sol_len, [])
+        entry.append(s)
+        by_len[sol_len] = entry
+
+    by_len = sorted(by_len.items(), key=lambda k: -k[0])
+    for result_len, results in by_len:
+        print '%d-letter words:' % result_len
+        print '   '.join([r for r in results])
+        print ''
+
+
 def old_method():
     tiles = sorted(sys.argv[1].upper().replace('?', '.'))
     pattern = '^%s%s$' % (
@@ -54,9 +69,7 @@ def new_method():
         else:
             solutions.append(w)
 
-    solutions.sort(key=lambda s: (-len(s), s))
-    for s in solutions:
-        print s
+    display_results(solutions)
 
 
 def main():
