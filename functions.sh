@@ -5,7 +5,7 @@ _scrabble_anagram() {
 }
 
 _scrabble_like() {
-  grep -E "$1" "$HOME/Code/tiny/anagram-finder/scrabble-words.txt"
+  grep -i -E "$1" "$HOME/Code/tiny/anagram-finder/scrabble-words.txt"
 }
 
 scrabble() {
