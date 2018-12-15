@@ -11,7 +11,7 @@ def get_words():
         return [l.strip() for l in f]
 
 
-def display_results(solutions):
+def _pretty_results(solutions):
     by_len = {}
     for s in solutions:
         sol_len = len(s)
@@ -24,6 +24,14 @@ def display_results(solutions):
         print '%d-letter words:' % result_len
         print '   '.join([r for r in results])
         print ''
+
+
+def display_results(solutions):
+    if sys.stdout.isatty():
+        return _pretty_results(solutions)
+
+    for s in sorted(solutions, key=lambda s: (len(s), s)):
+        print s
 
 
 def old_method():
