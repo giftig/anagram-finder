@@ -1,6 +1,5 @@
 #!/usr/bin/env python2.7
 
-import re
 import os
 import sys
 
@@ -34,25 +33,8 @@ def display_results(solutions):
         print s
 
 
-def old_method():
-    tiles = sorted(sys.argv[1].upper().replace('?', '.'))
-    pattern = '^%s%s$' % (
-        ''.join(tiles[:2]),
-        ''.join([t + '?' for t in tiles[2:]])
-    )
-    pattern = re.compile(pattern)
-
-    words = get_words()
-    words = [(w, ''.join(sorted(w))) for w in words]
-
-    matches = [w for (w, canon) in words if pattern.match(canon)]
-    matches = sorted(matches, key=lambda m: (-len(m), m))
-    for m in matches:
-        print m
-
-
-def new_method():
-    tiles = sorted(sys.argv[1].upper())
+def main(phrase):
+    tiles = sorted(phrase.upper().replace('.', '?'))
     maxlen = len(tiles)
     words = [w for w in get_words() if len(w) <= maxlen]
 
@@ -80,9 +62,5 @@ def new_method():
     display_results(solutions)
 
 
-def main():
-    new_method()
-
-
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1])
